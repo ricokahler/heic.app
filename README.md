@@ -7,3 +7,7 @@ powered by [libheif](https://github.com/strukturag/libheif) which was [emscripte
 check it out at [heic.app](https://heic.app)
 
 contributions welcome
+
+---
+
+have an idea? [submit it via issues](https://github.com/ricokahler/heic.app/issues)

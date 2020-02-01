@@ -1,15 +1,19 @@
 {
   "name": "heic.app",
   "version": "1.0.0",
-  "description": "",
+  "description": "a heic image converter that lives 100% in the browser",
+  "keywords": [
+    "heic",
+    "jpg"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p"
+    "build": "NODE_ENV=production webpack -p && echo \"/* /index.html 200\" >> ./dist/_redirects"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "ricokahler",
+  "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
@@ -33,6 +37,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-brands-svg-icons": "^5.12.0",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/react-fontawesome": "^0.1.8",
     "classnames": "^2.2.6",
