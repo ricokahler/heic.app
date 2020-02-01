@@ -143,11 +143,13 @@ function App(props) {
 
   const handleDownload = async () => {
     const resolvedImages = await Promise.all(
-      images.map(async image => {
-        const response = await fetch(image.url);
-        const blob = await response.blob();
-        return { ...image, blob };
-      }),
+      images
+        .filter(image => !!image.url)
+        .map(async image => {
+          const response = await fetch(image.url);
+          const blob = await response.blob();
+          return { ...image, blob };
+        }),
     );
 
     const deDupedFileNames = Object.values(
