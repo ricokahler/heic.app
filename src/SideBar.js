@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { darken } from 'polished';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { createStyles, List, ListItemButton, Button, useTheme } from 'hacker-ui';
+import { createStyles, List, ListItemButton, Button, useTheme, Tooltip } from 'hacker-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
@@ -161,9 +161,20 @@ function SideBar(props) {
           multiple
           onChange={handleChange}
         />
-        <Button shape="icon" color={theme.colors.bland} size="large" onClick={onDownload}>
-          <FontAwesomeIcon icon={faDownload} />
-        </Button>
+        <Tooltip title="Download images">
+          {props => (
+            <Button
+              shape="icon"
+              color={theme.colors.bland}
+              size="large"
+              onClick={onDownload}
+              disabled={!images.every(image => !!image.url) || images.length <= 0}
+              {...props}
+            >
+              <FontAwesomeIcon icon={faDownload} />
+            </Button>
+          )}
+        </Tooltip>
       </div>
       {images.length <= 0 ? (
         <div className={styles.empty}>
