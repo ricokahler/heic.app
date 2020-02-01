@@ -42,7 +42,7 @@ module.exports = {
         'og:title': 'HEIC to JPG converter online',
         'twitter:title': 'Convert HEIC to JPG 100% in the browser via libheic',
         'twitter:description':
-          'heic.app converts your HEIC images to JPGs. This is done without any server. Your images stay right on your computer.',
+          'heic.app converts your HEIC images to JPGs. This is done locally, without a server. Your images stay right on your computer.',
         copyright: `Copyright © ${new Date().getYear()} Rico Kahler`,
         author: 'Rico Kahler',
       },
