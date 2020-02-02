@@ -1,7 +1,7 @@
 module.exports = {
   entry: {
     'heic-app': './src/index.js',
-    serviceWorker: './src/serviceWorker.js',
+    'service-worker': './src/serviceWorker.js',
   },
   output: {
     filename: './[name].js',
