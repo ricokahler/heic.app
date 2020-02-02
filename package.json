@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development webpack-dev-server",
-    "build": "rm -rf dist && NODE_ENV=production webpack -p && echo \"/* /index.html 200\" >> ./dist/_redirects && cp ./index.html ./dist/index.html"
+    "build": "rm -rf dist && NODE_ENV=production webpack -p && echo \"/* /index.html 200\" >> ./dist/_redirects && cp ./index.html ./dist/index.html && cp ./manifest.json ./dist/manifest.json"
   },
   "author": "ricokahler",
   "license": "MIT",
