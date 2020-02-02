@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p && echo \"/* /index.html 200\" >> ./dist/_redirects"
+    "build": "NODE_ENV=production webpack -p && echo \"/* /index.html 200\" >> ./dist/_redirects && cp ./index.html ./dist/index.html"
   },
   "author": "ricokahler",
   "license": "MIT",
@@ -28,7 +28,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "html-webpack-plugin": "^3.2.0",
     "style-loader": "^1.1.3",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
