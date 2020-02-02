@@ -6,6 +6,7 @@ import * as Sentry from '@sentry/browser';
 
 import './index.css';
 import App from './App';
+import * as serviceWorker from './serviceWorker';
 
 Sentry.init({ dsn: 'https://e0f2505d220c46b29a91ff4b6a2b6bc4@sentry.io/2169844' });
 
@@ -30,3 +31,5 @@ render(
   </BrowserRouter>,
   container,
 );
+
+serviceWorker.register();
