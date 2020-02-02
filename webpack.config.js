@@ -31,5 +31,9 @@ module.exports = {
   node: {
     fs: 'empty',
   },
-  plugins: [new WorkboxPlugin.GenerateSW()],
+  plugins: [
+    new WorkboxPlugin.GenerateSW({
+      maximumFileSizeToCacheInBytes: 5 * 1000 * 1000,
+    }),
+  ],
 };
