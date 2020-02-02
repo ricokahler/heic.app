@@ -175,7 +175,7 @@ function App(props) {
     }
 
     const zipBlob = await zip.generateAsync({ type: 'blob' });
-    download(zipBlob, `images-${new Date().toISOString()}.zip`);
+    download(zipBlob, `heic-app-${new Date().toISOString()}.zip`);
     setDownloading(false);
     setDownloadDialogOpen(false);
   };
