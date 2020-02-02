@@ -98,6 +98,7 @@ const useStyles = createStyles(({ css, theme }) => ({
 function App(props) {
   const { Root, styles } = useStyles(props);
   const [images, setImages] = useState([]);
+  const [downloading, setDownloading] = useState(false);
   const [downloadDialogOpen, setDownloadDialogOpen] = useState(false);
   const [idToDelete, setIdToDelete] = useState('');
   const history = useHistory();
@@ -143,6 +144,7 @@ function App(props) {
   };
 
   const handleDownload = async () => {
+    setDownloading(true);
     const resolvedImages = await Promise.all(
       images
         .filter(image => !!image.url)
@@ -174,6 +176,8 @@ function App(props) {
 
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     download(zipBlob, `images-${new Date().toISOString()}.zip`);
+    setDownloading(false);
+    setDownloadDialogOpen(false);
   };
 
   return (
@@ -237,7 +241,10 @@ function App(props) {
       <Modal
         className={styles.modal}
         open={downloadDialogOpen}
-        onClose={() => setDownloadDialogOpen(false)}
+        onClose={() => {
+          if (downloading) return;
+          setDownloadDialogOpen(false);
+        }}
       >
         <ModalHeader>
           <h1 className={styles.modalTitle}>Download converted images.</h1>
@@ -245,11 +252,20 @@ function App(props) {
         <p>Pressing Download will download a zip folder of the files you've uploaded.</p>
         <ModalFooter>
           <ModalActions>
-            <Button color={theme.colors.bland} onClick={() => setDownloadDialogOpen(false)}>
+            <Button
+              color={theme.colors.bland}
+              disabled={downloading}
+              onClick={() => setDownloadDialogOpen(false)}
+            >
               Cancel
             </Button>
-            <Button variant="filled" color={theme.colors.brand} onClick={handleDownload}>
-              Download
+            <Button
+              variant="filled"
+              color={theme.colors.brand}
+              onClick={handleDownload}
+              disabled={downloading}
+            >
+              {downloading ? 'Downloading…' : 'Download'}
             </Button>
           </ModalActions>
         </ModalFooter>
