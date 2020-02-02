@@ -60,7 +60,11 @@ async function heicToJpegDataUrl(dataUrl) {
 
   context.putImageData(imgData, 0, 0);
 
-  const blob = await canvas.convertToBlob({ type: 'image/jpeg' });
+  const convertToBlob = canvas.convertToBlob
+    ? canvas.convertToBlob.bind(canvas)
+    : canvas.toBlob.bind(canvas);
+
+  const blob = await convertToBlob({ type: 'image/jpeg' });
   const outputDataUrl = URL.createObjectURL(blob);
   return outputDataUrl;
 }
