@@ -68,6 +68,7 @@ const useStyles = createStyles(({ css, theme }) => ({
   `,
   emptySubtitle: css`
     ${theme.fonts.h4};
+    font-weight: 400;
     margin: 0;
     text-align: center;
   `,
@@ -289,7 +290,7 @@ function App(props) {
         <p>
           heic.app requires that your browser supports{' '}
           <Anchor
-            href="https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas"
+            href="https://caniuse.com/#feat=offscreencanvas"
             target="_blank"
             rel="noopener noreferrer"
           >
