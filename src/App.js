@@ -16,6 +16,7 @@ import JsZip from 'jszip';
 import download from 'downloadjs';
 import SideBar from './SideBar';
 import AppBar from './AppBar';
+import WindowDropZone from './WindowDropZone';
 import heicWorkerPool from './heicWorkerPool';
 
 const useStyles = createStyles(({ css, theme }) => ({
@@ -182,6 +183,8 @@ function App(props) {
 
   return (
     <>
+      <WindowDropZone onNewImages={handleNewImages} />
+
       <Root>
         <SideBar
           className={styles.sideBar}
@@ -213,7 +216,7 @@ function App(props) {
               <div className={styles.empty}>
                 <p className={styles.emptyTitle}>Nothing here yet.</p>
                 <p className={styles.emptySubtitle}>
-                  Upload {images.length > 0 && 'or select'} a photo to begin.
+                  Drop any .heic files anywhere on this window.
                 </p>
               </div>
             )}

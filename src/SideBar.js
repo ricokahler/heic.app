@@ -137,6 +137,8 @@ function SideBar(props) {
     onNewImages(files);
   };
 
+  const loadingSomeImages = !images.every(image => !!image.url);
+
   return (
     <Root>
       <div className={styles.header}>
@@ -166,10 +168,13 @@ function SideBar(props) {
           color={theme.colors.bland}
           size="large"
           onClick={onDownload}
-          disabled={!images.every(image => !!image.url) || images.length <= 0}
+          disabled={loadingSomeImages || images.length <= 0}
           title="Download images"
         >
-          <FontAwesomeIcon icon={faDownload} />
+          <FontAwesomeIcon
+            icon={loadingSomeImages ? faCircleNotch : faDownload}
+            spin={loadingSomeImages}
+          />
         </Button>
       </div>
       {images.length <= 0 ? (
