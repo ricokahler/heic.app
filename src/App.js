@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalFooter,
   ModalActions,
+  Anchor,
 } from 'hacker-ui';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import shortId from 'shortid';
@@ -100,6 +101,7 @@ function App(props) {
   const { Root, styles } = useStyles(props);
   const [images, setImages] = useState([]);
   const [downloading, setDownloading] = useState(false);
+  const [browserMessageOpen, setBrowserMessageOpen] = useState(!window.OffscreenCanvas);
   const [downloadDialogOpen, setDownloadDialogOpen] = useState(false);
   const [idToDelete, setIdToDelete] = useState('');
   const history = useHistory();
@@ -269,6 +271,38 @@ function App(props) {
               disabled={downloading}
             >
               {downloading ? 'Downloading…' : 'Download'}
+            </Button>
+          </ModalActions>
+        </ModalFooter>
+      </Modal>
+
+      <Modal
+        open={browserMessageOpen}
+        onClose={() => setBrowserMessageOpen(false)}
+        className={styles.modal}
+      >
+        <ModalHeader>
+          <h1 className={styles.modalTitle}>Sorry, your browser is not supported.</h1>
+        </ModalHeader>
+        <p>
+          heic.app requires that your browser supports{' '}
+          <Anchor
+            href="https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            OffscreenCanvas
+          </Anchor>
+          .
+        </p>
+        <ModalFooter>
+          <ModalActions>
+            <Button
+              variant="filled"
+              color={theme.colors.brand}
+              onClick={() => setBrowserMessageOpen(false)}
+            >
+              Okay
             </Button>
           </ModalActions>
         </ModalFooter>
