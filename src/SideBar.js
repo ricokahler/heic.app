@@ -143,7 +143,7 @@ function SideBar(props) {
     <Root>
       <div className={styles.header}>
         <h1 className={styles.title}>heic.app</h1>
-        <p className={styles.subtitle}>The free HEIC converter</p>
+        <p className={styles.subtitle}>The free HEIC image converter</p>
       </div>
       <div className={styles.upload}>
         <Button

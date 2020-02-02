@@ -282,7 +282,9 @@ function App(props) {
         className={styles.modal}
       >
         <ModalHeader>
-          <h1 className={styles.modalTitle}>Sorry, your browser is not supported.</h1>
+          <h1 className={styles.modalTitle}>
+            Sorry, your browser is not supported. Try Chrome or the new Edge.
+          </h1>
         </ModalHeader>
         <p>
           heic.app requires that your browser supports{' '}
