@@ -122,10 +122,11 @@ function App(props) {
     setImages(images => [...images, ...imageObjects]);
 
     for (const imageObject of imageObjects) {
-      const url = await heicWorkerPool.convert(imageObject.file);
-      setImages(images =>
-        images.map(image => (imageObject.id === image.id ? { ...image, url } : image)),
-      );
+      heicWorkerPool.convert(imageObject.file).then(url => {
+        setImages(images =>
+          images.map(image => (imageObject.id === image.id ? { ...image, url } : image)),
+        );
+      });
     }
 
     const last = imageObjects[imageObjects.length - 1];

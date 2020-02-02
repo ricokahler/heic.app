@@ -2,7 +2,7 @@ import HeicWorker from './heic.worker';
 import AsyncQueue from './AsyncQueue';
 import DeferredPromise from './DeferredPromise';
 
-const workerCount = 4;
+const workerCount = 5;
 
 function createWorkerPool() {
   const asyncQueue = new AsyncQueue();
