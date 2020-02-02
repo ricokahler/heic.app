@@ -1,7 +1,10 @@
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    'heic-app': './src/index.js',
+    serviceWorker: './src/serviceWorker.js',
+  },
   output: {
-    filename: './heic-app.js',
+    filename: './[name].js',
   },
   module: {
     rules: [
