@@ -168,7 +168,6 @@ function SideBar(props) {
           onClick={onDownload}
           disabled={!images.every(image => !!image.url) || images.length <= 0}
           title="Download images"
-          {...props}
         >
           <FontAwesomeIcon icon={faDownload} />
         </Button>
