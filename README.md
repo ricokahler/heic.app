@@ -6,6 +6,8 @@ powered by [libheif](https://github.com/strukturag/libheif) which was [emscripte
 
 check it out at [heic.app](https://heic.app)
 
+![screenshot](./screenshot.png)
+
 contributions welcome
 
 ---
