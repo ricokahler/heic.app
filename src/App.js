@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   createStyles,
   Button,
@@ -9,8 +9,7 @@ import {
   ModalActions,
   Anchor,
 } from 'hacker-ui';
-import queryString from 'query-string';
-import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import shortId from 'shortid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
@@ -113,43 +112,6 @@ function App(props) {
   const theme = useTheme();
   const currentImageId = useRouteMatch({ path: '/:currentImageId' })?.params
     ?.currentImageId;
-  const location = useLocation();
-  const { url } = queryString.parse(location.search);
-
-  useEffect(() => {
-    const urlArray = Array.isArray(url) ? url : [url];
-
-    const imagesFromUrl = urlArray.map(url => {
-      const id = `${encodeURIComponent(url).replace(/\./g, '-')}-${shortId()}`;
-
-      return {
-        id,
-        name: url,
-        created: Date.now(),
-        url: undefined,
-        heicUrl: url,
-      };
-    });
-
-    if (images.length <= 0) return;
-
-    setImages(images => [...images, ...imagesFromUrl]);
-
-    for (const image of imagesFromUrl) {
-      fetch(image.heicUrl).then(async response => {
-        const blob = await response.blob();
-
-        const jpegUrl = await heicWorkerPool.convert(blob);
-
-        setImages(images =>
-          images.map(i => (i.id === image.id ? { ...i, url: jpegUrl } : i)),
-        );
-      });
-    }
-
-    const last = imagesFromUrl[imagesFromUrl.length - 1];
-    history.push(`/${last.id}`);
-  }, [history, images.length, url]);
 
   /**
    * @param {File[]} files
