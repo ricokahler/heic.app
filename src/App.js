@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   createStyles,
   Button,
@@ -9,7 +9,8 @@ import {
   ModalActions,
   Anchor,
 } from 'hacker-ui';
-import { useRouteMatch, useHistory } from 'react-router-dom';
+import queryString from 'query-string';
+import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import shortId from 'shortid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
@@ -55,7 +56,8 @@ const useStyles = createStyles(({ css, theme }) => ({
     object-fit: contain;
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3)) drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3))
+      drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.3));
   `,
   empty: css`
     display: flex;
@@ -102,19 +104,57 @@ function App(props) {
   const { Root, styles } = useStyles(props);
   const [images, setImages] = useState([]);
   const [downloading, setDownloading] = useState(false);
-  const [browserMessageOpen, setBrowserMessageOpen] = useState(!window.OffscreenCanvas);
+  const [browserMessageOpen, setBrowserMessageOpen] = useState(
+    !window.OffscreenCanvas,
+  );
   const [downloadDialogOpen, setDownloadDialogOpen] = useState(false);
   const [idToDelete, setIdToDelete] = useState('');
   const history = useHistory();
   const theme = useTheme();
-  const currentImageId = useRouteMatch({ path: '/:currentImageId' })?.params?.currentImageId;
+  const currentImageId = useRouteMatch({ path: '/:currentImageId' })?.params
+    ?.currentImageId;
+  const location = useLocation();
+  const { url } = queryString.parse(location.search);
+
+  useEffect(() => {
+    const urlArray = Array.isArray(url) ? url : [url];
+
+    const imagesFromUrl = urlArray.map(url => {
+      const id = `${encodeURIComponent(url).replace(/\./g, '-')}-${shortId()}`;
+
+      return {
+        id,
+        name: url,
+        created: Date.now(),
+        url: undefined,
+        heicUrl: url,
+      };
+    });
+
+    setImages(images => [...images, ...imagesFromUrl]);
+
+    for (const image of imagesFromUrl) {
+      fetch(image.heicUrl).then(async response => {
+        const blob = await response.blob();
+
+        const jpegUrl = heicWorkerPool.convert(blob);
+
+        setImages(images =>
+          images.map(i => (i.id === image.id ? { ...i, url: jpegUrl } : i)),
+        );
+      });
+    }
+  }, [url]);
 
   /**
    * @param {File[]} files
    */
   const handleNewImages = async files => {
     const imageObjects = files.map(file => {
-      const id = `${encodeURIComponent(file.name).replace(/\./g, '-')}-${shortId()}`;
+      const id = `${encodeURIComponent(file.name).replace(
+        /\./g,
+        '-',
+      )}-${shortId()}`;
       return {
         id,
         name: file.name,
@@ -129,7 +169,9 @@ function App(props) {
     for (const imageObject of imageObjects) {
       heicWorkerPool.convert(imageObject.file).then(url => {
         setImages(images =>
-          images.map(image => (imageObject.id === image.id ? { ...image, url } : image)),
+          images.map(image =>
+            imageObject.id === image.id ? { ...image, url } : image,
+          ),
         );
       });
     }
@@ -210,10 +252,18 @@ function App(props) {
                   >
                     <FontAwesomeIcon icon={faEllipsisV} />
                   </Button>
-                  <img className={styles.image} src={currentImage.url} alt={currentImage.name} />
+                  <img
+                    className={styles.image}
+                    src={currentImage.url}
+                    alt={currentImage.name}
+                  />
                 </>
               ) : (
-                <FontAwesomeIcon className={styles.spinner} icon={faCircleNotch} size="3x" />
+                <FontAwesomeIcon
+                  className={styles.spinner}
+                  icon={faCircleNotch}
+                  size="3x"
+                />
               )
             ) : (
               <div className={styles.empty}>
@@ -227,17 +277,30 @@ function App(props) {
         </div>
       </Root>
 
-      <Modal className={styles.modal} open={!!idToDelete} onClose={() => setIdToDelete('')}>
+      <Modal
+        className={styles.modal}
+        open={!!idToDelete}
+        onClose={() => setIdToDelete('')}
+      >
         <ModalHeader>
-          <h1 className={styles.modalTitle}>Are you sure you want to remove this picture?</h1>
+          <h1 className={styles.modalTitle}>
+            Are you sure you want to remove this picture?
+          </h1>
         </ModalHeader>
         <p>This action cannot be undone.</p>
         <ModalFooter>
           <ModalActions>
-            <Button color={theme.colors.bland} onClick={() => setIdToDelete('')}>
+            <Button
+              color={theme.colors.bland}
+              onClick={() => setIdToDelete('')}
+            >
               Cancel
             </Button>
-            <Button variant="filled" color={theme.colors.danger} onClick={handleDelete}>
+            <Button
+              variant="filled"
+              color={theme.colors.danger}
+              onClick={handleDelete}
+            >
               Delete
             </Button>
           </ModalActions>
@@ -255,7 +318,10 @@ function App(props) {
         <ModalHeader>
           <h1 className={styles.modalTitle}>Download converted images.</h1>
         </ModalHeader>
-        <p>Pressing Download will download a zip folder of the files you've uploaded.</p>
+        <p>
+          Pressing Download will download a zip folder of the files you've
+          uploaded.
+        </p>
         <ModalFooter>
           <ModalActions>
             <Button
