@@ -131,20 +131,25 @@ function App(props) {
       };
     });
 
+    if (images.length <= 0) return;
+
     setImages(images => [...images, ...imagesFromUrl]);
 
     for (const image of imagesFromUrl) {
       fetch(image.heicUrl).then(async response => {
         const blob = await response.blob();
 
-        const jpegUrl = heicWorkerPool.convert(blob);
+        const jpegUrl = await heicWorkerPool.convert(blob);
 
         setImages(images =>
           images.map(i => (i.id === image.id ? { ...i, url: jpegUrl } : i)),
         );
       });
     }
-  }, [url]);
+
+    const last = imagesFromUrl[imagesFromUrl.length - 1];
+    history.push(`/${last.id}`);
+  }, [history, images.length, url]);
 
   /**
    * @param {File[]} files
