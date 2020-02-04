@@ -2,7 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import { darken } from 'polished';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { createStyles, List, ListItemButton, Button, useTheme } from 'hacker-ui';
+import {
+  createStyles,
+  List,
+  ListItemButton,
+  Button,
+  useTheme,
+} from 'hacker-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
@@ -129,7 +135,8 @@ const useStyles = createStyles(({ css, theme }) => {
 function SideBar(props) {
   const { Root, styles, images, onNewImages, onDownload } = useStyles(props);
   const theme = useTheme();
-  const currentImageId = useRouteMatch({ path: '/:currentImageId?' })?.params?.currentImageId;
+  const currentImageId = useRouteMatch({ path: '/:currentImageId?' })?.params
+    ?.currentImageId;
 
   const handleChange = e => {
     const files = Array.from(e.currentTarget.files);
@@ -177,9 +184,12 @@ function SideBar(props) {
           />
         </Button>
       </div>
+      <div></div>
       {images.length <= 0 ? (
         <div className={styles.empty}>
-          <div className={styles.emptyText}>Your uploaded images will appear here.</div>
+          <div className={styles.emptyText}>
+            Your uploaded images will appear here.
+          </div>
         </div>
       ) : (
         <List className={styles.list}>

@@ -21,7 +21,9 @@ async function heicToJpegDataUrl(dataUrl) {
     throw new Error('expected heic base64 string');
   }
 
-  const inputBuffer = base64ToArrayBuffer(dataUrl.substring('data:image/heic;base64,'.length));
+  const inputBuffer = base64ToArrayBuffer(
+    dataUrl.substring('data:image/heic;base64,'.length),
+  );
   const data = decoder.decode(inputBuffer);
 
   const image = data[0];
