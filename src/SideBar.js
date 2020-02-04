@@ -49,7 +49,7 @@ const useStyles = createStyles(({ css, theme }) => {
       display: flex;
       align-items: center;
       padding: ${theme.space(1)};
-      border-bottom: 1px solid ${theme.colors.bland};
+      padding-bottom: 0;
       & > *:not(:last-child) {
         margin-right: ${theme.space(0.5)};
       }
@@ -129,6 +129,28 @@ const useStyles = createStyles(({ css, theme }) => {
         }
       }
     `,
+    loadingBar: css`
+      height: 2px;
+      flex: 0 0 auto;
+      position: relative;
+    `,
+    loadingBarBar: css`
+      height: 100%;
+      border-bottom: 2px solid ${theme.colors.accent};
+      width: 0;
+      transition: width ${theme.durations.standard}ms;
+    `,
+    percentageLabel: css`
+      ${theme.fonts.caption};
+      text-align: center;
+      padding: ${theme.space(0.5)};
+      border-bottom: 1px solid ${theme.colors.bland};
+      display: flex;
+      justify-content: center;
+      & > *:not(:last-child) {
+        margin-right: ${theme.space(1)};
+      }
+    `,
   };
 });
 
@@ -145,6 +167,12 @@ function SideBar(props) {
   };
 
   const loadingSomeImages = !images.every(image => !!image.url);
+
+  const loadedCount = images.reduce(
+    (loadedCount, next) => (!!next.url ? loadedCount + 1 : loadedCount),
+    0,
+  );
+  const percentage = loadedCount / images.length;
 
   return (
     <Root>
@@ -184,7 +212,22 @@ function SideBar(props) {
           />
         </Button>
       </div>
-      <div></div>
+
+      <div className={styles.percentageLabel}>
+        <span>{!isNaN(percentage) && `${Math.floor(percentage * 100)}%`}</span>
+        <span>
+          {loadedCount}/{images.length}{' '}
+          {images.length === 1 ? 'Photo' : 'Photos'}
+        </span>
+      </div>
+
+      <div className={styles.loadingBar}>
+        <div
+          className={styles.loadingBarBar}
+          style={{ width: `${percentage * 100}%` }}
+        ></div>
+      </div>
+
       {images.length <= 0 ? (
         <div className={styles.empty}>
           <div className={styles.emptyText}>
