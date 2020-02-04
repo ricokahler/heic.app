@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   createStyles,
   Button,
@@ -112,6 +112,15 @@ function App(props) {
   const theme = useTheme();
   const currentImageId = useRouteMatch({ path: '/:currentImageId' })?.params
     ?.currentImageId;
+  const [photoWarning, setPhotoWarning] = useState(false);
+
+  const over100Photos = images.length > 100;
+
+  useEffect(() => {
+    if (over100Photos) {
+      setPhotoWarning(true);
+    }
+  }, [over100Photos]);
 
   /**
    * @param {File[]} files
@@ -337,6 +346,31 @@ function App(props) {
               variant="filled"
               color={theme.colors.brand}
               onClick={() => setBrowserMessageOpen(false)}
+            >
+              Okay
+            </Button>
+          </ModalActions>
+        </ModalFooter>
+      </Modal>
+
+      <Modal
+        open={photoWarning}
+        onClose={() => setPhotoWarning(false)}
+        className={styles.modal}
+      >
+        <ModalHeader>
+          <h1 className={styles.modalTitle}>Whoa, there!</h1>
+        </ModalHeader>
+        <p>That's a lot of photos.</p>
+        <p>
+          For the best performance, try to stay around 100 photos per session.
+        </p>
+        <ModalFooter>
+          <ModalActions>
+            <Button
+              variant="filled"
+              color={theme.colors.brand}
+              onClick={() => setPhotoWarning(false)}
             >
               Okay
             </Button>
