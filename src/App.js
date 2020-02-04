@@ -122,6 +122,22 @@ function App(props) {
     }
   }, [over100Photos]);
 
+  useEffect(() => {
+    const handleBeforeUnload = e => {
+      if (images.length <= 0) return;
+
+      e.preventDefault();
+      // Chrome requires returnValue to be set.
+      e.returnValue = '';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [images.length]);
+
   /**
    * @param {File[]} files
    */
