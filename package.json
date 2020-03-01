@@ -43,7 +43,7 @@
     "@sentry/browser": "^5.11.2",
     "classnames": "^2.2.6",
     "downloadjs": "^1.4.7",
-    "hacker-ui": "0.0.0-aca68ff7c",
+    "hacker-ui": "0.0.0",
     "jszip": "^3.2.2",
     "libheif-js": "^1.6.1",
     "polished": "^3.4.4",
