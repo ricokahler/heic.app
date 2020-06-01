@@ -49,7 +49,7 @@
     "polished": "^3.5.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-router-dom": "^5.1.2",
+    "react-router-dom": "^5.2.0",
     "shortid": "^2.2.15",
     "use-interval": "^1.2.1"
   }
