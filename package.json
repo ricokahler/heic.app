@@ -46,7 +46,7 @@
     "hacker-ui": "0.0.0-aca68ff7c",
     "jszip": "^3.4.0",
     "libheif-js": "^1.6.2",
-    "polished": "^3.5.2",
+    "polished": "^3.6.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
