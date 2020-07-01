@@ -48,7 +48,7 @@
     "libheif-js": "^1.6.2",
     "polished": "^3.6.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.0",
+    "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "shortid": "^2.2.15",
     "use-interval": "^1.2.1"
