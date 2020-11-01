@@ -38,7 +38,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.31",
     "@fortawesome/free-brands-svg-icons": "^5.15.0",
-    "@fortawesome/free-solid-svg-icons": "^5.15.0",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@sentry/browser": "^5.22.3",
     "classnames": "^2.2.6",
