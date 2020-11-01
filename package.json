@@ -20,7 +20,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
-    "css-loader": "^4.3.0",
+    "css-loader": "^5.0.0",
     "eslint": "^6.8.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-flowtype": "^4.7.0",
@@ -33,7 +33,7 @@
     "webpack": "^4.44.2",
     "webpack-dev-server": "^3.11.0",
     "workbox-webpack-plugin": "^5.1.4",
-    "worker-loader": "^3.0.3"
+    "worker-loader": "^3.0.5"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.31",
