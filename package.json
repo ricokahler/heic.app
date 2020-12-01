@@ -18,7 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^9.1.2",
     "css-loader": "^5.0.0",
     "eslint": "^6.8.0",
